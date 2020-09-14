@@ -7,7 +7,7 @@ module.exports = {
 }
 
 // Database Name
-const dbName = 'treller';
+const dbName = 'taskflow_db';
 
 var dbConn = null;
 
