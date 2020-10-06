@@ -21,11 +21,14 @@ function connectSockets(io) {
         //     socket.join(taskId)
         //     socket.myTask = taskId;
         // })
+        // socket.on('update board', board => {
+        //     io.to(socket.boardTopic).emit('update board', board)
+        // })
         socket.on('update board', board => {
-            io.to(socket.boardTopic).emit('update board', board)
+            socket.broadcast.to(socket.boardTopic).emit('update board', board)
         })
         // socket.on('update board', board => {
-        //     socket.broadcast.to(socket.boardTopic).emit('update board', board)
+        //     io.broadcast.to(socket.boardTopic).emit('update board', board)
         // })
     })
 }
