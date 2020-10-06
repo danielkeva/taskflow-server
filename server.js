@@ -17,7 +17,9 @@ const connectSockets = require('./api/socket/socket.routes')
 
 
 app.use(cookieParser())
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
