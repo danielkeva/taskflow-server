@@ -51,9 +51,9 @@ app.use('/api/board', boardRoutes)
 connectSockets(io)
 
 // if (process.env.NODE_ENV === 'productio') {
-    app.get('/*', function (req, res) {
-        res.sendFile(path.join(__dirname, 'public', 'index.html'));
-    });
+    // app.get('/*', function (req, res) {
+    //     res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    // });
 // }
 
 
