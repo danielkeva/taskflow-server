@@ -48,13 +48,15 @@ if (process.env.NODE_ENV === 'production') {
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/board', boardRoutes)
+
 connectSockets(io)
 
-// if (process.env.NODE_ENV === 'productio') {
-    // app.get('/*', function (req, res) {
-    //     res.sendFile(path.join(__dirname, 'public', 'index.html'));
-    // });
-// }
+if (process.env.NODE_ENV === 'production') {
+    //To make browserRouter client routing to work
+    app.get('/*', function (req, res) {
+        res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    });
+}
 
 
 
