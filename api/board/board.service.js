@@ -34,7 +34,6 @@ async function update(board) {
     const collection = await dbService.getCollection('board')
     board._id = ObjectId(board._id);
     try {
-        console.log('board.service',board);
         await collection.replaceOne({ "_id": board._id }, { $set: board })
         return board
     } catch (err) {

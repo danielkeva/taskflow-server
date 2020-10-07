@@ -49,7 +49,12 @@ app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/board', boardRoutes)
 
-
+if (process.env.NODE_ENV === 'production') {
+    app.get('/*', function (req, res) {
+        console.log('yesyes!');
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    });
+}
 connectSockets(io)
 
 
