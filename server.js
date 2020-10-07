@@ -29,7 +29,7 @@ app.use(session({
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.resolve(__dirname, 'public')));
-    app.get('/*', function(req, res) {
+    app.get('/', function(req, res) {
         res.sendFile(path.join(__dirname, 'public', 'index.html'));
     });
 } else {
