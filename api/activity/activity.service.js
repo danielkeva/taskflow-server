@@ -4,7 +4,7 @@ const ObjectId = require('mongodb').ObjectId
 async function query(boardId) {
     const collection = await dbService.getCollection('activity')
     try {
-        const boardActivity = await collection.findOne({ boardId: ObjectId(boardId) })
+        const boardActivity = await collection.findOne({ boardId: boardId })
         return boardActivity.activities
     } catch (err) {
         console.log(`ERROR: cannot update`)
@@ -15,7 +15,7 @@ async function update(boardId, activity) {
     const collection = await dbService.getCollection('activity')
     try {
         await collection.updateOne(
-            { boardId: ObjectId(boardId) },
+            { boardId: boardId },
             {
                 $push: {
                     activities: {
