@@ -4,10 +4,18 @@ const ObjectId = require('mongodb').ObjectId
 async function query(boardId) {
     const collection = await dbService.getCollection('activity')
     try {
-        const boardActivity = await collection.findOne({ boardId: boardId })
+        // const boardActivity = await collection.findOne({ boardId: boardId })
+        const boardActivity = await collection.findOneAndUpdate(
+            { boardId: boardId },
+            { $set: { boardId, activities: [] } },
+            {
+                returnNewDocument: true,   // return new doc if one is upserted
+                upsert: true // insert the document if it does not exist
+            }
+        )
+
         return boardActivity.activities
     } catch (err) {
-        console.log(`ERROR: cannot update`)
         throw err;
     }
 }

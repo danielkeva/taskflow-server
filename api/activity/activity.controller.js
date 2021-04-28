@@ -8,7 +8,6 @@ async function getActivities(req, res) {
     } catch (err) {
         logger.error('Cannot get activities', err);
         res.status(500).send({ error: 'cannot get activities' })
-
     }
 }
 

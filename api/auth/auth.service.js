@@ -1,4 +1,6 @@
 const bcrypt = require('bcrypt')
+const crypto = require('crypto')
+const validator = require('validator');
 const userService = require('../user/user.service')
 const logger = require('../../services/logger.service')
 
@@ -17,12 +19,16 @@ async function login(email, password) {
     return user;
 }
 
-async function signup(email, password, username) {
-    logger.debug(`auth.service - signup with email: ${email}, username: ${username}`)
-    if (!email || !password || !username) return Promise.reject('email, username and password are required!')
-
+async function signup( email, password, firstName, lastName) {
     const hash = await bcrypt.hash(password, saltRounds)
-    return userService.add({email, password: hash, username})
+    const md5 = crypto.createHash('md5').update(email).digest('hex');
+    try {
+        const newUser = await userService.add({ email, password: hash, username: firstName, avatar: md5 })
+        return newUser
+    } catch (err) {
+        console.log('err in signup catch block ')
+        throw err
+    }
 }
 
 module.exports = {

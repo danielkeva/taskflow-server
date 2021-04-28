@@ -2,13 +2,13 @@ const logger = require('../../services/logger.service')
 const boardService = require('./board.service')
 
 async function getBoards(req, res) {
+    const { user } = req.session.passport
+    console.log('userid', user);
     try {
-        const boards = await boardService.query(req.query)
-        res.json(boards)
+        const boards = await boardService.query(user)
+        res.send(boards)
     } catch (err) {
-        logger.error('Cannot get reviews', err);
-        res.status(500).send({ error: 'cannot get boards' })
-
+        res.status(404).send({ status: 'error', error: 'Boards wasn\'t found' })
     }
 }
 async function getBoard(req, res) {
@@ -17,7 +17,7 @@ async function getBoard(req, res) {
         res.json(board)
     } catch (err) {
         logger.error('Cannot find the board', err);
-        res.status(500).send({ error: 'cannot get BOARD' })
+        res.status(404).send({ status: 'error', error: 'Board wasn\'t found' })
         throw err
     }
 }
@@ -32,23 +32,24 @@ async function updateBoard(req, res) {
     }
 }
 
+async function addBoard(req, res) {
+    try {
+        const board = await boardService.add(req.body)
+        res.json(board)
+    } catch (err) {
+        logger.error('Cannot add board', err);
+        throw err
+    }
+}
 // async function deleteReview(req, res) {
 //     await boardService.remove(req.params.id)
 //     res.end()
 // }
 
-// async function addReview(req, res) {
-//     var board = req.body;
-//     board.byUserId = req.session.user._id;
-//     board = await boardService.add(board)
-//     board.byUser = req.session.user;
-//     // TODO - need to find aboutUser
-//     board.aboutUser = {}
-//     res.send(board)
-// }
 
 module.exports = {
     getBoards,
     getBoard,
-    updateBoard
+    updateBoard,
+    addBoard
 }

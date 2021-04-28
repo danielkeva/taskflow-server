@@ -2,6 +2,12 @@ module.exports = connectSockets
 
 function connectSockets(io) {
     io.on('connection', socket => {
+        const userId = socket.request.session.passport.user;
+        // const userId = socket.request.session;
+        console.log('inside socket.io: ', userId)
+        // if (userId) {
+            socket.emit('userExist', userId)
+        // }
         socket.on('board topic', boardId => {
             if (socket.boardTopic) {
                 socket.leave(socket.boardTopic)

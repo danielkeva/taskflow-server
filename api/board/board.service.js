@@ -5,12 +5,12 @@ const ObjectId = require('mongodb').ObjectId
 
 
 
-async function query() {
+async function query(userId) {
     // const criteria = _buildCriteria(filterBy)
     const criteria = {}
     const collection = await dbService.getCollection('board')
     try {
-        const boards = await collection.find(criteria).toArray();
+        const boards = await collection.find({ "users": userId }).toArray();
         return boards
     } catch (err) {
         console.log('ERROR: cannot find boards')
@@ -41,6 +41,16 @@ async function update(board) {
         throw err;
     }
 }
+async function add(board) {
+    const collection = await dbService.getCollection('board')
+    try {
+        await collection.insertOne(board);
+        return board;
+    } catch (err) {
+        console.log(`ERROR: cannot insert user`)
+        throw err;
+    }
+}
 
 // async function remove(reviewId) {
 //     const collection = await dbService.getCollection('board')
@@ -53,19 +63,6 @@ async function update(board) {
 // }
 
 
-// async function add(board) {
-//     board.byUserId = ObjectId(board.byUserId);
-//     board.aboutUserId = ObjectId(board.aboutUserId);
-
-//     const collection = await dbService.getCollection('board')
-//     try {
-//         await collection.insertOne(board);
-//         return board;
-//     } catch (err) {
-//         console.log(`ERROR: cannot insert user`)
-//         throw err;
-//     }
-// }
 
 function _buildCriteria(filterBy) {
     const criteria = {};
@@ -75,7 +72,8 @@ function _buildCriteria(filterBy) {
 module.exports = {
     query,
     getById,
-    update
+    update,
+    add
 }
 
 
