@@ -45,6 +45,7 @@ passport.use(
     })
 );
 console.log('CLIENT_URL', CLIENT_URL);
+
 passport.use(
     new GoogleStrategy(
         {
