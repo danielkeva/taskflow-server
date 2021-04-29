@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+const MongoStore = require('connect-mongo');
 const config = require('./config');
 const passport = require('passport');
 require('./config/passport');
@@ -37,8 +37,8 @@ const sessionMiddleware = session({
     resave: true,
     saveUninitialized: true,
     secret: 'keyboard cat',
-    cookie: { maxAge: 1209600000, sameSite: 'none', secure: true, httpOnly: true }, // two weeks in milliseconds
-    store: new MongoStore({ url: config.dbURL }),
+    cookie: { maxAge: 1209600000, sameSite: 'none' }, // two weeks in milliseconds
+    store: MongoStore.create({ mongoUrl: config.dbURL }),
 });
 app.use(sessionMiddleware);
 
