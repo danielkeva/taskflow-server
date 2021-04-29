@@ -51,7 +51,7 @@ passport.use(
         {
             clientID: '287380028312-r34cm81i3g140bl8t335v1k3ctudl83j.apps.googleusercontent.com',
             clientSecret: 'vpv4nJiZVCfwiloNdAqaQ7Je',
-            callbackURL: `${CLIENT_URL}auth/google/callback`,
+            callbackURL: `${CLIENT_URL}/auth/google/callback`,
         },
         async (req, accessToken, refreshToken, profile, cb) => {
             const users = await dbService.getCollection('user');
