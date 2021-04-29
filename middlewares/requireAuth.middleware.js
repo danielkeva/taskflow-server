@@ -3,6 +3,7 @@ const userService = require('../api/user/user.service');
 const logger = require('../services/logger.service');
 
 async function requireAuth(req, res, next) {
+    console.log('request', req);
     if (!req.isAuthenticated()) {
         console.log('no auth');
         res.status(401).end('Unauthorized!');

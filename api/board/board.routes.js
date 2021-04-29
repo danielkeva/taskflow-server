@@ -3,7 +3,7 @@ const { requireAuth, requireAdmin, requireBoardAuth } = require('../../middlewar
 const { getBoards, getBoard, updateBoard, addBoard } = require('./board.controller');
 const router = express.Router();
 
-router.get('/', requireBoardAuth, getBoards);
+router.get('/', requireAuth, getBoards);
 router.get('/:id', getBoard);
 // router.get('/:id',requireAuth, getBoard)
 router.post('/', requireAuth, addBoard);
