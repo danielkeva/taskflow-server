@@ -37,7 +37,7 @@ const sessionMiddleware = session({
     resave: true,
     saveUninitialized: true,
     secret: 'keyboard cat',
-    cookie: { maxAge: 1209600000, sameSite: true }, // two weeks in milliseconds
+    cookie: { maxAge: 1209600000, sameSite: none, secure: true, httpOnly: true }, // two weeks in milliseconds
     store: new MongoStore({ url: config.dbURL }),
 });
 app.use(sessionMiddleware);
