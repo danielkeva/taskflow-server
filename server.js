@@ -36,6 +36,7 @@ const sessionMiddleware = session({
     resave: true,
     saveUninitialized: true,
     secret: 'keyboard cat',
+    proxy : true, // add this when behind a reverse proxy, if you need secure cookies
     cookie: { maxAge: 1209600000, secure: true, sameSite:'none'}, // two weeks in milliseconds
     store: MongoStore.create({ mongoUrl: config.dbURL }),
 });
