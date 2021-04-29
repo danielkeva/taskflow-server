@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const dbService = require('../services/db.service');
 const userService = require('../api/user/user.service');
 const ObjectId = require('mongodb').ObjectId;
-const { REACT_APP_SERVER_URL = 'http://localhost:3030/' } = process.env;
+const { CLIENT_URL = 'http://localhost:3000' } = process.env;
 
 passport.serializeUser((user, cb) => {
     console.log('serializeUser');
@@ -50,7 +50,7 @@ passport.use(
         {
             clientID: '287380028312-r34cm81i3g140bl8t335v1k3ctudl83j.apps.googleusercontent.com',
             clientSecret: 'vpv4nJiZVCfwiloNdAqaQ7Je',
-            callbackURL: `${REACT_APP_SERVER_URL}auth/google/callback`,
+            callbackURL: `${CLIENT_URL}auth/google/callback`,
         },
         async (req, accessToken, refreshToken, profile, cb) => {
             const users = await dbService.getCollection('user');
