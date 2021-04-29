@@ -5,7 +5,6 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const config = require('./config');
 const passport = require('passport');
-require('./config/passport');
 const cors = require('cors');
 const app = express();
 
@@ -37,10 +36,11 @@ const sessionMiddleware = session({
     resave: true,
     saveUninitialized: true,
     secret: 'keyboard cat',
-    cookie: { maxAge: 1209600000, sameSite: 'none', secure: false, httpOnly: true }, // two weeks in milliseconds
+    cookie: { maxAge: 1209600000, secure: false }, // two weeks in milliseconds
     store: MongoStore.create({ mongoUrl: config.dbURL }),
 });
 app.use(sessionMiddleware);
+require('./config/passport');
 
 app.use(passport.initialize());
 app.use(passport.session());
