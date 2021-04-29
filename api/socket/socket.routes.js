@@ -1,40 +1,23 @@
-module.exports = connectSockets
+module.exports = connectSockets;
 
 function connectSockets(io) {
     io.on('connection', socket => {
-        const userId = socket.request.session.passport.user;
+        // const userId = socket.request.session.passport.user;
         // const userId = socket.request.session;
-        console.log('inside socket.io: ', userId)
+        // console.log('inside socket.io: ', userId);
         // if (userId) {
-            socket.emit('userExist', userId)
+        // socket.emit('userExist', userId);
         // }
         socket.on('board topic', boardId => {
             if (socket.boardTopic) {
-                socket.leave(socket.boardTopic)
+                socket.leave(socket.boardTopic);
             }
-            socket.join(boardId)
+            socket.join(boardId);
             socket.boardTopic = boardId;
-        })
+        });
 
-        // socket.on('update board', board => {
-        //     io.to(socket.boardTopic).emit('update newBoard', board)
-        // })
-
-        // socket.on('task topic', taskId => {
-        //     if (socket.myTask) {
-        //         socket.leave(socket.myTask)
-        //     }
-        //     socket.join(taskId)
-        //     socket.myTask = taskId;
-        // })
-        // socket.on('update board', board => {
-        //     io.to(socket.boardTopic).emit('update board', board)
-        // })
         socket.on('update board', board => {
-            socket.broadcast.to(socket.boardTopic).emit('update board', board)
-        })
-        // socket.on('update board', board => {
-        //     io.broadcast.to(socket.boardTopic).emit('update board', board)
-        // })
-    })
+            socket.broadcast.to(socket.boardTopic).emit('update board', board);
+        });
+    });
 }
