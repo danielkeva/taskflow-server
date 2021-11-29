@@ -1,4 +1,4 @@
 module.exports = {
-    dbURL: 'mongodb+srv://daniel:YsUqlyeRsstEDAjO@cluster0.alovs.mongodb.net/taskflow_db?retryWrites=true&w=majority',
-    baseUrl: 'https://my-taskflow.herokuapp.com',
+  dbURL: "mongodb+srv://daniel:DCNxwTcupGG26YDc@cluster0.alovs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  baseUrl: "https://my-taskflow.herokuapp.com",
 };
